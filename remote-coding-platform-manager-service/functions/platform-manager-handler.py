@@ -1,5 +1,6 @@
 import requests
 
+
 def handler(event, context):
     response = requests.get('https://api.github.com/events')
     return {
