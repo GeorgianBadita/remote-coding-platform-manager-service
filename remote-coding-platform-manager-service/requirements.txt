@@ -106,4 +106,3 @@ websockets==8.1
 wrapt==1.12.1
 xkit==0.0.0
 zipp==1.0.0
-marshmallow-dataclass==8.3.1

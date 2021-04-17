@@ -1,4 +1,4 @@
-from dynamodb.questions_dynamodb_accessor import QuestionsDynamoDBAccessor
+from dynamodb.dynamodb_question_accessor import QuestionDDBAccessor
 import json
 
 
@@ -9,7 +9,9 @@ def handler(event, context):
         return handle_get_all_questions()
 
     return return_get_response(200, {
-        'Hello': 'World'
+        'Hello': '1',
+        'From': '2',
+        'Lambda': '3'
     })
 
 
@@ -24,6 +26,6 @@ def return_get_response(status_code: int, payload: dict):
 
 
 def handle_get_all_questions():
-    questions = QuestionsDynamoDBAccessor.get_all_items()
+    questions = QuestionDDBAccessor.get_all_items()
     print(f"Got questions: {questions}")
     return return_get_response(200, questions)
