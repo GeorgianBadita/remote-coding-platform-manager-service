@@ -1,12 +1,15 @@
-from model.test_case import TestCase
-from model.programming_languages import ProgrammingLanguages
-from model.data_type import DataType
+from model.generic_enum import GenericEnum
+from model.generic_data_class import GenericDataClass
 from typing import List, Dict
 from enum import Enum
 from dataclasses import dataclass
 
+from model.test_case import TestCase
+from model.programming_languages import ProgrammingLanguages
+from model.data_type import DataType
 
-class QuestionDifficulty(Enum):
+
+class QuestionDifficulty(GenericEnum, Enum):
     EASY = "EASY"
     MEDIUM = "MEDIUM"
     HARD = "HARD"
@@ -20,7 +23,7 @@ class QuestionDifficulty(Enum):
 
 
 @dataclass
-class Question:
+class Question(GenericDataClass):
     question_id: str
     question_name: str
     statement: str

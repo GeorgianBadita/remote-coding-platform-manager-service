@@ -1,9 +1,10 @@
 from enum import Enum
+from model.generic_enum import GenericEnum
 
 
-class DataType(Enum):
+class DataType(GenericEnum, Enum):
     ARRAY = "ARRAY"
-    NUMBEr = "NUMBER"
+    NUMBER = "NUMBER"
 
     def return_enum_value_or_throw(value_to_find):
         for enum_value in DataType:

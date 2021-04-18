@@ -1,3 +1,5 @@
+from model.question import Question
+from typing import List
 from dynamodb.dynamodb_question_accessor import QuestionDDBAccessor
 import json
 
@@ -26,6 +28,6 @@ def return_get_response(status_code: int, payload: dict):
 
 
 def handle_get_all_questions():
-    questions = QuestionDDBAccessor.get_all_items()
+    questions: List[Question] = QuestionDDBAccessor.get_all_items()
     print(f"Got questions: {questions}")
-    return return_get_response(200, questions)
+    return return_get_response(200, [question.to_json() for question in questions])

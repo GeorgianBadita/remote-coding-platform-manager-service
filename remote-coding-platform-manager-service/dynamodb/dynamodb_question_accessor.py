@@ -1,5 +1,6 @@
+import boto3
 from model.programming_languages import ProgrammingLanguages
-from typing import Dict, List, Union
+from typing import Dict, List, Optional
 from model.test_case import TestCase, TestCaseArg
 from model.data_type import DataType
 from model.question import Question, QuestionDifficulty
@@ -8,8 +9,10 @@ from dynamodb.dynamodb_abstract_accessor import AbstractDynamoDBAccessor
 
 class QuestionDynamoDBAccessor(AbstractDynamoDBAccessor):
 
-    def __init__(self, table_name):
-        super().__init__(table_name)
+    def __init__(self, table_name: str, partition_key_name: str, sort_key_name: Optional[str] = None):
+        ddb_client = boto3.resource(
+            'dynamodb', endpoint_url="https://dynamodb.eu-west-1.amazonaws.com")
+        super().__init__(ddb_client, table_name, partition_key_name, sort_key_name)
 
     def deserialize(self, item) -> any:
         question_id = item['question_id']
@@ -26,7 +29,7 @@ class QuestionDynamoDBAccessor(AbstractDynamoDBAccessor):
             value) for value in item['output_signature']]
         supported_languages = [ProgrammingLanguages.return_enum_value_or_throw(
             value) for value in item['supported_languages']]
-        test_cases = self.__deserialize_test_casess(item['test_cases'])
+        test_cases = self.__deserialize_test_cases(item['test_cases'])
         urls_to_official_solutions = self.__deserialize_urls(
             item['urls_to_official_solutions'])
         urls_to_test_code = self.__deserialize_urls(item['urls_to_test_code'])
@@ -78,4 +81,5 @@ class QuestionDynamoDBAccessor(AbstractDynamoDBAccessor):
         return result
 
 
-QuestionDDBAccessor = QuestionDynamoDBAccessor("QUESTIONS")
+QuestionDDBAccessor = QuestionDynamoDBAccessor(
+    "QUESTIONS", partition_key_name="question_id")

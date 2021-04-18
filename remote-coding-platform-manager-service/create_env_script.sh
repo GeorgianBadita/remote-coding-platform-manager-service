@@ -1,0 +1,1 @@
+virtualenv .venv --python=python3.8 && source .venv/bin/activate && pip install -r requirements.txt && export PYTHONPATH="${PYTHONPATH}:/home/geo/Programming/remote-coding-platform-manager-service/remote-coding-platform-manager-service"

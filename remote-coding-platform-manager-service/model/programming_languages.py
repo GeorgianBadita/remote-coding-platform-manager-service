@@ -1,7 +1,8 @@
 from enum import Enum
+from model.generic_enum import GenericEnum
 
 
-class ProgrammingLanguages(Enum):
+class ProgrammingLanguages(GenericEnum, Enum):
     PYTHON = "python"
     CPP = "cpp"
 
